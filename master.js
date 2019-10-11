@@ -118,19 +118,27 @@ function distributeCards(){
   return p1, p2;
 }
 
-
 // Playing eachplayer's cards
 function playCards(){
+  if(p1.length > 0 && p2.length > 0){
     p1Card = p1.pop();
     p2Card = p2.pop();
-    console.log("Player 1: ");
-    console.log(p1Card);
-    console.log("Player 2: ");
-    console.log(p2Card);
+    console.log(`Player 1 played a ${p1Card.card} of ${p1Card.suit} Player 2 played a ${p2Card.card} of ${p2Card.suit}`);
+
 
   return p1Card, p2Card;
-
+  }
+  else {
+    alert("Game Over");
+    if(p1.length > p2.length){
+      alert("Player 1 wins");
+    }
+    else{
+      alert("Player 2 wins");
+    }
 }
+}
+//pushes all the cards into the array warPile/
 function warScenario() {
   p1Card = p1.pop();
   warPile.push(p1Card);
@@ -147,6 +155,7 @@ function warScenario() {
   warPile.push(p2Card);
   console.log(warPile);
 }
+//takes the cards from war pile and shifts them into the winners deck
 function warWinner(winnerDeck){
   warBooty = warPile.pop();
   winnerDeck.unshift(warBooty);
@@ -171,12 +180,6 @@ function compareCardsInPlay(){
       warWinner(p1);
     }
 
-
-
-    console.log("Player 1: ");
-    console.log(p1);
-    console.log("Player 2: ");
-    console.log(p2);
     p1Card = 0;
     p2Card = 0;
   }
@@ -187,23 +190,20 @@ function compareCardsInPlay(){
       warWinner(p2);
     }
 
-    console.log("Player 1: ");
-    console.log(p1);
-    console.log("Player 2: ");
-    console.log(p2);
+
     p1Card = 0;
     p2Card = 0;
 
   }
   else{
-    console.log("War!");
+    alert("War!");
     if(p1.length > 3 && p2.length > 3){
     warScenario();
     playCards();
     compareCardsInPlay();
   }
   else{
-    console.log("Game Over!");
+    alert("Game Over!");
     if(p1.length > p2.length){
       console.log("Player 1 wins the game!");
     }
@@ -214,19 +214,16 @@ function compareCardsInPlay(){
 }
 }
 
-shuffle(deck);
-distributeCards();
+function startGame(){
+  shuffle(deck);
+  distributeCards();
+  alert("The Game has started and the cards are shuffled!");
+}
 
-
-// while(p1.length > 0 && p1.length > 0){
+function playRound(){
   playCards();
-  console.log(warPile);
   compareCardsInPlay();
-  console.log("Player 1: ");
-  console.log(p1);
-  console.log("Player 2: ");
-  console.log(p2);
+  console.log(`Player 1 has ${p1.length} cards. Player 2 has ${p2.length} cards`);
+}
 
-
-
-// }
+// document.addEventListener("keydown", playRound);
