@@ -1,8 +1,6 @@
 /*jshint esversion: 6 */
 /*
-
 PSEUDOCODE
-
 Goal:
 To be the first player to win all 52 cards. Therefore When one player has 52 cards the game ends.
 Put another way: when one of the player arrays has an 'array.length' of 52 the game ends.
@@ -12,8 +10,6 @@ Dealing:
 1. deck with 52 cards
 2. shuffle that deck
 3. split that deck into two equal parts
-
-
 -
 -
 Playing:
@@ -37,11 +33,7 @@ deckArray = 52 cards
 randomly distribute cards
 player1 array = 26 cards
 player2 array = 26 cards
-
 */
-
-//Shuffling the deck
-
 
 var deck = [
   {suit: "Hearts", card: "Ace", rank: 1},
@@ -100,7 +92,14 @@ var deck = [
   {suit: "Clubs", card: "Queen", rank: 12},
   {suit: "Clubs", card: "King", rank: 13},
 ];
+var p1 = []; /* player 1's hand */
+var p2 = []; /* player 2's hand */
+var p1Card;  /* The card player 1 puts down */
+var p2Card;  /*The card player 2 puts down*/
+var warPile = [];
+var war = [];
 
+//Shuffling the deck
 function shuffle(array){
   var m = array.length, t, i;
   while(m){
@@ -111,93 +110,123 @@ function shuffle(array){
   }
   return array;
 }
-  console.log(shuffle(deck));
 
 //Distributing the deck to the two players - each player should have 26 cards
-
-/* player 1's hand */ var p1 = [];
-/* player 2's hand */ var p2 = [];
-
-p1 = deck.slice(0,26);
-p2 = deck.slice(26);
-console.log(p1);
-console.log(p2);
-
-// Playing the game
-
-// /*if both players have cards, the game should be in play */
-
-//play game
-
-// while(p1.length > 0 && p2.length > 0){ }
-
-/*Player one pulls the card from the top of the deck (i.e. the last object in the player 1 array).
-  Player two pulls the card from the top of the deck (i.e the last object in the player 2 array ).
-*/
-var warPile = [];
-var p1Card = p1.pop();
-var p2Card = p2.pop();
-
-/*Tell each player what card they drew*/
-
-console.log("Player 1: ");
-console.log(p1Card);
-console.log("Player 2: ");
-console.log(p2Card);
-
-/*Compare the ranks of the cards.
-If player 1's card is greater than player 2, player 1 wins - player 1 gets both played cards; reset the played cards variable to empty
-If player 2's card is greater than player 1, player 2 wins - player 2 gets both played cards; reset the played cards variable to empty
-Or else, the game goes into WAR. */
-
-if( p1Card.rank > p2Card.rank){
-  console.log("Player 1 wins round");
-  p1.unshift(p1Card, p2Card);
-
-  console.log(p1);
-  console.log(p2);
-  p1Card = 0;
-  p2Card = 0;
+function distributeCards(){
+  p1 = deck.slice(0,26);
+  p2 = deck.slice(26);
+  return p1, p2;
 }
-else if(p2Card.rank > p1Card.rank){
-  console.log("Player 2 wins round");
-  p2.unshift(p1Card, p2Card);
 
-  console.log(p2);
-  console.log(p1);
-  p1Card = 0;
-  p2Card = 0;
+
+// Playing eachplayer's cards
+function playCards(){
+    p1Card = p1.pop();
+    p2Card = p2.pop();
+    console.log("Player 1: ");
+    console.log(p1Card);
+    console.log("Player 2: ");
+    console.log(p2Card);
+
+  return p1Card, p2Card;
 
 }
-else{
-  console.log("War!");
-  if(p1.length > 3 && p2.length > 3){
-  //pull 3 cards from the end of player 1 deck
-  //pull 3 cards from the end of player 2 deck
-    p1Card = p1.pop();
-    warPile.push(p1Card);
-    p1Card = p1.pop();
-    warPile.push(p1Card);
-    p1Card = p1.pop();
-    warPile.push(p1Card);
+function warScenario() {
+  p1Card = p1.pop();
+  warPile.push(p1Card);
+  p1Card = p1.pop();
+  warPile.push(p1Card);
+  p1Card = p1.pop();
+  warPile.push(p1Card);
 
-    p2Card = p2.pop();
-    warPile.push(p2Card);
-    p2Card = p2.pop();
-    warPile.push(p1Card);
-    p2Card = p2.pop();
-    warPile.push(p2Card);
-    console.log(warPile);
+  p2Card = p2.pop();
+  warPile.push(p2Card);
+  p2Card = p2.pop();
+  warPile.push(p2Card);
+  p2Card = p2.pop();
+  warPile.push(p2Card);
+  console.log(warPile);
+}
+function warWinner(winnerDeck){
+  warBooty = warPile.pop();
+  winnerDeck.unshift(warBooty);
+  warBooty = warPile.pop();
+  winnerDeck.unshift(warBooty);
+  warBooty = warPile.pop();
+  winnerDeck.unshift(warBooty);
+  warBooty = warPile.pop();
+  winnerDeck.unshift(warBooty);
+  warBooty = warPile.pop();
+  winnerDeck.unshift(warBooty);
+  warBooty = warPile.pop();
+  winnerDeck.unshift(warBooty);
+}
+
+//Compare the played cards and determine a winner
+function compareCardsInPlay(){
+  if( p1Card.rank > p2Card.rank){
+    console.log("Player 1 wins round");
+    p1.unshift(p1Card, p2Card);
+    if(warPile.length >  0){
+      warWinner(p1);
+    }
 
 
 
-  //play the game again, who ever wins the next round gets the 2 cards in play,
-  //plus all 6 cards being held in pile.
+    console.log("Player 1: ");
+    console.log(p1);
+    console.log("Player 2: ");
+    console.log(p2);
+    p1Card = 0;
+    p2Card = 0;
+  }
+  else if(p2Card.rank > p1Card.rank){
+    console.log("Player 2 wins round");
+    p2.unshift(p1Card, p2Card);
+    if(warPile.length >  0){
+      warWinner(p2);
+    }
+
+    console.log("Player 1: ");
+    console.log(p1);
+    console.log("Player 2: ");
+    console.log(p2);
+    p1Card = 0;
+    p2Card = 0;
+
+  }
+  else{
+    console.log("War!");
+    if(p1.length > 3 && p2.length > 3){
+    warScenario();
+    playCards();
+    compareCardsInPlay();
+  }
+  else{
+    console.log("Game Over!");
+    if(p1.length > p2.length){
+      console.log("Player 1 wins the game!");
+    }
+    else{
+      console.log("Player 2 wins the game!");
+    }
   }
 }
+}
+
+shuffle(deck);
+distributeCards();
+
+
+// while(p1.length > 0 && p1.length > 0){
+  playCards();
+  console.log(warPile);
+  compareCardsInPlay();
+  console.log("Player 1: ");
+  console.log(p1);
+  console.log("Player 2: ");
+  console.log(p2);
 
 
 
-// if player 1's card (with index 0) is greater than player 2's card (with index 1), than player 1 wins.
-// if player 2's card (with index 1) is greater than player 1's card (with index 0), than player 2 wins.
-// or else, the game goes into war
+// }
