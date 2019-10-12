@@ -35,6 +35,7 @@ player1 array = 26 cards
 player2 array = 26 cards
 */
 
+//The main deck of cards.
 var deck = [
   {suit: "Hearts", card: "Ace", rank: 1},
   {suit: "Hearts", card: "2", rank: 2},
@@ -92,14 +93,15 @@ var deck = [
   {suit: "Clubs", card: "Queen", rank: 12},
   {suit: "Clubs", card: "King", rank: 13},
 ];
-var p1 = []; /* player 1's hand */
-var p2 = []; /* player 2's hand */
-var p1Card;  /* The card player 1 puts down */
-var p2Card;  /*The card player 2 puts down*/
-var warPile = [];
-var war = [];
 
-//Shuffling the deck
+//The players' decks
+var p1Deck = []; /* player 1's deck */
+var p2Deck = []; /* player 2's deck */
+
+//The cards that have been played go into this pile
+var playedCards = [];
+
+//Function to shuffle the main deck.
 function shuffle(array){
   var m = array.length, t, i;
   while(m){
@@ -111,119 +113,97 @@ function shuffle(array){
   return array;
 }
 
-//Distributing the deck to the two players - each player should have 26 cards
+//Distribute the cards to each player
 function distributeCards(){
-  p1 = deck.slice(0,26);
-  p2 = deck.slice(26);
-  return p1, p2;
+  p1Deck = deck.slice(0,26);
+  p2Deck = deck.slice(26);
+  return p1Deck, p2Deck;
 }
 
-// Playing eachplayer's cards
-function playCards(){
-  if(p1.length > 0 && p2.length > 0){
-    p1Card = p1.pop();
-    p2Card = p2.pop();
-    console.log(`Player 1 played a ${p1Card.card} of ${p1Card.suit} Player 2 played a ${p2Card.card} of ${p2Card.suit}`);
-
-
-  return p1Card, p2Card;
-  }
-  else {
-    alert("Game Over");
-    if(p1.length > p2.length){
-      alert("Player 1 wins");
-    }
-    else{
-      alert("Player 2 wins");
-    }
-}
-}
-//pushes all the cards into the array warPile/
-function warScenario() {
-  p1Card = p1.pop();
-  warPile.push(p1Card);
-  p1Card = p1.pop();
-  warPile.push(p1Card);
-  p1Card = p1.pop();
-  warPile.push(p1Card);
-
-  p2Card = p2.pop();
-  warPile.push(p2Card);
-  p2Card = p2.pop();
-  warPile.push(p2Card);
-  p2Card = p2.pop();
-  warPile.push(p2Card);
-  console.log(warPile);
-}
-//takes the cards from war pile and shifts them into the winners deck
-function warWinner(winnerDeck){
-  warBooty = warPile.pop();
-  winnerDeck.unshift(warBooty);
-  warBooty = warPile.pop();
-  winnerDeck.unshift(warBooty);
-  warBooty = warPile.pop();
-  winnerDeck.unshift(warBooty);
-  warBooty = warPile.pop();
-  winnerDeck.unshift(warBooty);
-  warBooty = warPile.pop();
-  winnerDeck.unshift(warBooty);
-  warBooty = warPile.pop();
-  winnerDeck.unshift(warBooty);
-}
-
-//Compare the played cards and determine a winner
-function compareCardsInPlay(){
-  if( p1Card.rank > p2Card.rank){
-    console.log("Player 1 wins round");
-    p1.unshift(p1Card, p2Card);
-    if(warPile.length >  0){
-      warWinner(p1);
-    }
-
-    p1Card = 0;
-    p2Card = 0;
-  }
-  else if(p2Card.rank > p1Card.rank){
-    console.log("Player 2 wins round");
-    p2.unshift(p1Card, p2Card);
-    if(warPile.length >  0){
-      warWinner(p2);
-    }
-
-
-    p1Card = 0;
-    p2Card = 0;
-
+//Push the player's decks into the pile of played cards.
+function playCard(playerDeck, playedCards){
+  if( p1Deck.length > 0 && p2Deck.length > 0){
+  playedCards.push(playerDeck.pop());
   }
   else{
-    alert("War!");
-    if(p1.length > 3 && p2.length > 3){
-    warScenario();
-    playCards();
-    compareCardsInPlay();
-  }
-  else{
-    alert("Game Over!");
-    if(p1.length > p2.length){
-      console.log("Player 1 wins the game!");
+    if(p1Deck.length === 0){
+      console.log(`Game Over! Player 2 Wins!`);
     }
     else{
-      console.log("Player 2 wins the game!");
+      console.log(`Game Over! Player 1 Wins`);
     }
   }
 }
+
+function war(){
+  for(var n = 0; n < 4; n++){
+    playedCards.push(p1Deck.pop());
+    playedCards.push(p2Deck.pop());
+  }
+  console.log(playedCards);
+  if(playedCards[(playedCards.length-2)].rank > playedCards[(playedCards.length-1)].rank){
+    console.log("Player 1 wins War!");
+    for(var o = 0; o < playedCards.length; o++){
+      p1Deck.unshift(playedCards[o]);
+    }
+  }
+  else{
+    console.log("Player 2 wins War!");
+    for(var p = 0; p < playedCards.length; p++){
+      p2Deck.unshift(playedCards[p]);
+    }
+  }
+}
+function compareCards(clear){
+  if(playedCards[0].rank > playedCards[1].rank){
+    console.log(`Player 1 wins`);
+    for(var i = 0; i < playedCards.length; i++){
+      p1Deck.unshift(playedCards[i]);
+    }
+  }
+  else if(playedCards[0].rank < playedCards[1].rank){
+    console.log(`Player 2 wins`);
+    for(var j = 0; j < playedCards.length; j++){
+      p2Deck.unshift(playedCards[j]);
+    }
+  }
+  else{
+    if(p1Deck.length > 3 && p2Deck.length > 3){
+      console.log("War!");
+      war();
+    }
+    else{
+
+      if(p1Deck.length > p2Deck.length){
+        console.log("Game Over Player 1 Wins!");
+      }
+      else{
+        console.log("Game Over Player 2 Wins!");
+      }
+    }
+  }
+  console.log(`Player 1 has ${p1Deck.length} cards. Player 2 has ${p2Deck.length} cards`);
+clear();
 }
 
+function clearPlayedCards(){
+  playedCards = [];
+}
+
+//Start the game
 function startGame(){
   shuffle(deck);
   distributeCards();
-  alert("The Game has started and the cards are shuffled!");
+}
+//Each player puts down a card to start the round
+
+function beginRound(){
+  playCard(p1Deck, playedCards);
+  playCard(p2Deck, playedCards);
 }
 
-function playRound(){
-  playCards();
-  compareCardsInPlay();
-  console.log(`Player 1 has ${p1.length} cards. Player 2 has ${p2.length} cards`);
-}
-
-// document.addEventListener("keydown", playRound);
+startGame();
+// while( p1Deck.length > 0 && p2Deck.length > 0){
+  beginRound();
+  compareCards(clearPlayedCards);
+// }
