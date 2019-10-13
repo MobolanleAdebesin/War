@@ -112,7 +112,7 @@ class Board {
       console.log(`Game over! Player 1 wins`);
     }
   }
-  compareCards(clear){
+  compareCards(){
     if(this.playedCards[0].score > this.playedCards[1].score){
       console.log(`Player 1 wins!`);
       for(let i = 0; i < this.playedCards.length; i++){
@@ -166,6 +166,11 @@ class Board {
       }
     }
     console.log(`Player 1 has ${this.newDeck.p1Deck.length} card(s). Player 2 has ${this.newDeck.p2Deck.length} card(s).`);
+  }
+
+  playRound(){
+    this.playCard();
+    this.compareCards();
   }
 
 }
@@ -244,10 +249,10 @@ let myBoard = new Board();
 // }
 
 //Start the game
-function startGame(){
-  shuffle(mainDeck.cards);
-  distributeCards();
-}
+// function startGame(){
+//   shuffle(mainDeck.cards);
+//   distributeCards();
+// }
 //Each player puts down a card to start the round
 
 function beginRound(){
