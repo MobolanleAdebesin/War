@@ -55,7 +55,7 @@ class Deck{
   createDeck(){
     let suit = ["Hearts", "Diamonds", "Clubs", "Spades"];
     let rank = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
-    let score = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    let score = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     for(var q = 0; q < suit.length; q++){
       for(var r = 0; r < rank.length; r++){
         this.cards.push( new Cards(suit[q], rank[r], score[r]));
@@ -78,53 +78,89 @@ class Deck{
   }
 
 }
-let mainDeck = new Deck();
-mainDeck.createDeck();
+// let mainDeck = new Deck();
+// mainDeck.createDeck();
+//
+// mainDeck.shuffle(mainDeck.cards);
+// mainDeck.distributeCards();
 
-mainDeck.shuffle(mainDeck.cards);
-mainDeck.distributeCards();
-
-
-//The players' deck
-// var p1Deck = []; /* player 1's deck */
-// var p2Deck = []; /* player 2's deck */
 
 //The cards that have been played go into this pile
-var playedCards = [];
+// var playedCards = [];
 
-//Function to shuffle the main deck.
-// function shuffle(array){
-//   var m = array.length, t,s;
-//   while(m){
-//     s = Math.floor(Math.random()* m--);
-//     t = array[m];
-//     array[m] = array[s];
-//     array[s] = t;
-//   }
-//   return array;
-// }
+class Board {
+  constructor(){
+    this.newDeck = new Deck();
+    this.playedCards = [];
 
-//Distribute the cards to each player
-// function distributeCards(){
-//   p1Deck = mainDeck.cards.slice(0,26);
-//   p2Deck = mainDeck.cards.slice(26);
-//   return p1Deck, p2Deck;
-// }
-
-//Push the player's decks into the pile of played cards.
-function playCard(playerDeck, playedCards){
-  if( mainDeck.p1Deck.length < 52 && mainDeck.p2Deck.length < 52){
-  playedCards.push(playerDeck.pop());
   }
-  else{
-    if(mainDeck.p1Deck.length === 0){
-      console.log(`Game Over! Player 2 Wins!`);
+  setUpGame(){
+    this.newDeck.createDeck();
+    this.newDeck.shuffle(this.newDeck.cards);
+    this.newDeck.distributeCards();
+  }
+  playCard(){
+    if(this.newDeck.p1Deck.length < 52 && this.newDeck.p2Deck.length < 52){
+      this.playedCards.push(this.newDeck.p1Deck.pop());
+      this.playedCards.push(this.newDeck.p2Deck.pop());
+      console.log(`Player 1 played a ${this.playedCards[0].rank} of ${this.playedCards[0].suit}. Player 2 played a ${this.playedCards[1].rank} of ${this.playedCards[1].suit}.`);
+    }
+    else if(this.newDeck.p1Deck.length === 0){
+      console.log(`Game over! Player 2 wins`);
     }
     else{
-      console.log(`Game Over! Player 1 Wins`);
+      console.log(`Game over! Player 1 wins`);
     }
   }
+  compareCards(clear){
+    if(this.playedCards[0].score > this.playedCards[1].score){
+      console.log(`Player 1 wins!`);
+      for(let i = 0; i < this.playedCards.length; i++){
+        this.newDeck.p1Deck.unshift(this.playedCards[i]);
+      }
+    }
+    else if(this.playedCards[0].score < this.playedCards[1].score){
+      console.log(`Player 2 wins!`);
+      for(let j = 0; j < this.playedCards.length; j++){
+        this.newDeck.p2Deck.unshift(this.playedCards[j]);
+      }
+    }
+    else{
+      if(this.newDeck.p1Deck.length > 3 && this.newDeck.p2Deck.length > 3){
+        console.log(`War!`);
+      }
+      else if(this.newDeck.p1Deck.length > this.newDeck.p1Deck.length){
+          console.log(`Game Over! Player 1 Wins!`);
+      }
+      else{
+        console.log(`Game Over! Player 2 Wins!`);
+      }
+    }
+    console.log(`Player 1 has ${this.newDeck.p1Deck.length} card(s). Player 2 has ${this.newDeck.p2Deck.length} card(s).`);
+    this.clear();
+  }
+  clear(){
+    this.playedCards = [];
+  }
+
+
 }
+
+let myBoard = new Board();
+//Push the player's decks into the pile of played cards.
+// function playCard(playerDeck, playedCards){
+//   if( mainDeck.p1Deck.length < 52 && mainDeck.p2Deck.length < 52){
+//   playedCards.push(playerDeck.pop());
+//   }
+//   else{
+//     if(mainDeck.p1Deck.length === 0){
+//       console.log(`Game Over! Player 2 Wins!`);
+//     }
+//     else{
+//       console.log(`Game Over! Player 1 Wins`);
+//     }
+//   }
+// }
 
 function war(){
   for(var n = 0; n < 4; n++){
@@ -145,42 +181,42 @@ function war(){
     }
   }
 }
-function compareCards(clear){
+// function compareCards(clear){
+//
+//   if(playedCards[0].score > playedCards[1].score){
+//     console.log(`Player 1 wins`);
+//     for(var i = 0; i < playedCards.length; i++){
+//       mainDeck.p1Deck.unshift(playedCards[i]);
+//     }
+//   }
+//   else if(playedCards[0].score < playedCards[1].score){
+//     console.log(`Player 2 wins`);
+//     for(var j = 0; j < playedCards.length; j++){
+//       mainDeck.p2Deck.unshift(playedCards[j]);
+//     }
+//   }
+//   else{
+//     if(mainDeck.p1Deck.length > 3 && mainDeck.p2Deck.length > 3){
+//       console.log("War!");
+//       war();
+//     }
+//     else{
+//
+//       if(p1Deck.length > p2Deck.length){
+//         console.log(`Game Over Player 1 Wins!`);
+//       }
+//       else{
+//         console.log(`Game Over Player 2 Wins!`);
+//       }
+//     }
+//   }
+//   console.log(`Player 1 has ${mainDeck.p1Deck.length} cards. Player 2 has ${mainDeck.p2Deck.length} cards`);
+// clear();
+// }
 
-  if(playedCards[0].score > playedCards[1].score){
-    console.log(`Player 1 wins`);
-    for(var i = 0; i < playedCards.length; i++){
-      mainDeck.p1Deck.unshift(playedCards[i]);
-    }
-  }
-  else if(playedCards[0].score < playedCards[1].score){
-    console.log(`Player 2 wins`);
-    for(var j = 0; j < playedCards.length; j++){
-      mainDeck.p2Deck.unshift(playedCards[j]);
-    }
-  }
-  else{
-    if(mainDeck.p1Deck.length > 3 && mainDeck.p2Deck.length > 3){
-      console.log("War!");
-      war();
-    }
-    else{
-
-      if(p1Deck.length > p2Deck.length){
-        console.log("Game Over Player 1 Wins!");
-      }
-      else{
-        console.log("Game Over Player 2 Wins!");
-      }
-    }
-  }
-  console.log(`Player 1 has ${mainDeck.p1Deck.length} cards. Player 2 has ${mainDeck.p2Deck.length} cards`);
-clear();
-}
-
-function clearPlayedCards(){
-  playedCards = [];
-}
+// function clearPlayedCards(){
+//   playedCards = [];
+// }
 
 //Start the game
 function startGame(){
