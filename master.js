@@ -100,19 +100,20 @@ class Board {
     this.newDeck.distributeCards();
   }
   playCard(){
-    if(this.newDeck.p1Deck.length < 52 && this.newDeck.p2Deck.length < 52){
+    if(this.newDeck.p1Deck.length != 0 && this.newDeck.p2Deck.length != 0){
       this.playedCards.push(this.newDeck.p1Deck.pop());
       this.playedCards.push(this.newDeck.p2Deck.pop());
       console.log(`Player 1 played a ${this.playedCards[0].rank} of ${this.playedCards[0].suit}. Player 2 played a ${this.playedCards[1].rank} of ${this.playedCards[1].suit}.`);
     }
-    else if(this.newDeck.p1Deck.length === 0){
-      console.log(`Game over! Player 2 wins`);
+    else if(this.newDeck.p1Deck.length >  this.newDeck.p2Deck.length){
+      console.log(`Game over! Player 1 wins`);
     }
     else{
-      console.log(`Game over! Player 1 wins`);
+      console.log(`Game over! Player 2 wins`);
     }
   }
   compareCards(){
+    if( this.playedCards.length > 0){
     if(this.playedCards[0].score > this.playedCards[1].score){
       console.log(`Player 1 wins!`);
       for(let i = 0; i < this.playedCards.length; i++){
@@ -130,7 +131,7 @@ class Board {
         console.log(`War! Each player puts down 4 cards, the player whose last card is the highest takes the pile!`);
         this.war();
       }
-      else if(this.newDeck.p1Deck.length > this.newDeck.p1Deck.length){
+      else if(this.newDeck.p1Deck.length > this.newDeck.p2Deck.length){
           console.log(`Game Over! Player 1 Wins!`);
       }
       else{
@@ -139,6 +140,16 @@ class Board {
     }
     console.log(`Player 1 has ${this.newDeck.p1Deck.length} card(s). Player 2 has ${this.newDeck.p2Deck.length} card(s).`);
     this.clear();
+    }
+    else{
+      if(this.newDeck.p1Deck.length > this.newDeck.p2Deck.length){
+        console.log(`Game Over! Player 1 Wins!`);
+      }
+      else{
+        console.log(`Game Over! Player 2 Wins!`);
+      }
+
+    }
   }
   clear(){
     this.playedCards = [];
@@ -171,6 +182,18 @@ class Board {
   playRound(){
     this.playCard();
     this.compareCards();
+    // if(this.newDeck.p1Deck.length === 52){
+    //   console.log(`Player 1 wins`);
+    // }
+    // else if(this.newDeck.p2Deck.length === 52){
+    //   console.log(`Player 1 wins`);
+    // }
+  }
+  playGame(){
+
+    while(this.newDeck.p1Deck.length != 0 && this.newDeck.p2Deck.length !=0){
+      this.playRound();
+    }
   }
 
 }
