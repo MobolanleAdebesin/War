@@ -35,64 +35,7 @@ player1 array = 26 cards
 player2 array = 26 cards
 */
 
-//The main deck of cards.
-// var deck = [
-//   {suit: "Hearts", card: "Ace", rank: 1},
-//   {suit: "Hearts", card: "2", rank: 2},
-//   {suit: "Hearts", card: "3", rank: 3},
-//   {suit: "Hearts", card: "4", rank: 4},
-//   {suit: "Hearts", card: "5", rank: 5},
-//   {suit: "Hearts", card: "6", rank: 6},
-//   {suit: "Hearts", card: "7", rank: 7},
-//   {suit: "Hearts", card: "8", rank: 8},
-//   {suit: "Hearts", card: "9", rank: 9},
-//   {suit: "Hearts", card: "10", rank: 10},
-//   {suit: "Hearts", card: "Jack", rank: 11},
-//   {suit: "Hearts", card: "Queen", rank: 12},
-//   {suit: "Hearts", card: "King", rank: 13},
-//
-//   {suit: "Spades", card: "Ace", rank: 1},
-//   {suit: "Spades", card: "2", rank: 2},
-//   {suit: "Spades", card: "3", rank: 3},
-//   {suit: "Spades", card: "4", rank: 4},
-//   {suit: "Spades", card: "5", rank: 5},
-//   {suit: "Spades", card: "6", rank: 6},
-//   {suit: "Spades", card: "7", rank: 7},
-//   {suit: "Spades", card: "8", rank: 8},
-//   {suit: "Spades", card: "9", rank: 9},
-//   {suit: "Spades", card: "10", rank: 10},
-//   {suit: "Spades", card: "Jack", rank: 11},
-//   {suit: "Spades", card: "Queen", rank: 12},
-//   {suit: "Spades", card: "King", rank: 13},
-//
-//   {suit: "Diamonds", card: "Ace", rank: 1},
-//   {suit: "Diamonds", card: "2", rank: 2},
-//   {suit: "Diamonds", card: "3", rank: 3},
-//   {suit: "Diamonds", card: "4", rank: 4},
-//   {suit: "Diamonds", card: "5", rank: 5},
-//   {suit: "Diamonds", card: "6", rank: 6},
-//   {suit: "Diamonds", card: "7", rank: 7},
-//   {suit: "Diamonds", card: "8", rank: 8},
-//   {suit: "Diamonds", card: "9", rank: 9},
-//   {suit: "Diamonds", card: "10", rank: 10},
-//   {suit: "Diamonds", card: "Jack", rank: 11},
-//   {suit: "Diamonds", card: "Queen", rank: 12},
-//   {suit: "Diamonds", card: "King", rank: 13},
-//
-//   {suit: "Clubs", card: "Ace", rank: 1},
-//   {suit: "Clubs", card: "2", rank: 2},
-//   {suit: "Clubs", card: "3", rank: 3},
-//   {suit: "Clubs", card: "4", rank: 4},
-//   {suit: "Clubs", card: "5", rank: 5},
-//   {suit: "Clubs", card: "6", rank: 6},
-//   {suit: "Clubs", card: "7", rank: 7},
-//   {suit: "Clubs", card: "8", rank: 8},
-//   {suit: "Clubs", card: "9", rank: 9},
-//   {suit: "Clubs", card: "10", rank: 10},
-//   {suit: "Clubs", card: "Jack", rank: 11},
-//   {suit: "Clubs", card: "Queen", rank: 12},
-//   {suit: "Clubs", card: "King", rank: 13},
-// ];
+
 
 class Cards{
   constructor(suit, rank, score){
