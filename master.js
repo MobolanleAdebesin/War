@@ -60,12 +60,13 @@ class Deck{
       }
     }
   }
+
 }
 let mainDeck = new Deck();
 mainDeck.createDeck();
 
 
-//The players' decks
+//The players' deck
 var p1Deck = []; /* player 1's deck */
 var p2Deck = []; /* player 2's deck */
 
@@ -74,12 +75,12 @@ var playedCards = [];
 
 //Function to shuffle the main deck.
 function shuffle(array){
-  var m = array.length, t, i;
+  var m = array.length, t,s;
   while(m){
-    i = Math.floor(Math.random()* m--);
+    s = Math.floor(Math.random()* m--);
     t = array[m];
-    array[m] = array[i];
-    array[i] = t;
+    array[m] = array[s];
+    array[s] = t;
   }
   return array;
 }
