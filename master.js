@@ -64,7 +64,7 @@ class Deck{
       }
     }
   }
-  //This method shuffles the deck
+  //This method shuffles the deck source: https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
   shuffle(array){
     var m = array.length, t,s;
     while(m){
@@ -212,6 +212,8 @@ class Board {
 // }
 }
 let myBoard = new Board();
+myBoard.setUpGame();
+myBoard.playGame();
 
 //Push the player's decks into the pile of played cards.
 // function playCard(playerDeck, playedCards){
