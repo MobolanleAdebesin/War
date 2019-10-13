@@ -36,63 +36,91 @@ player2 array = 26 cards
 */
 
 //The main deck of cards.
-var deck = [
-  {suit: "Hearts", card: "Ace", rank: 1},
-  {suit: "Hearts", card: "2", rank: 2},
-  {suit: "Hearts", card: "3", rank: 3},
-  {suit: "Hearts", card: "4", rank: 4},
-  {suit: "Hearts", card: "5", rank: 5},
-  {suit: "Hearts", card: "6", rank: 6},
-  {suit: "Hearts", card: "7", rank: 7},
-  {suit: "Hearts", card: "8", rank: 8},
-  {suit: "Hearts", card: "9", rank: 9},
-  {suit: "Hearts", card: "10", rank: 10},
-  {suit: "Hearts", card: "Jack", rank: 11},
-  {suit: "Hearts", card: "Queen", rank: 12},
-  {suit: "Hearts", card: "King", rank: 13},
+// var deck = [
+//   {suit: "Hearts", card: "Ace", rank: 1},
+//   {suit: "Hearts", card: "2", rank: 2},
+//   {suit: "Hearts", card: "3", rank: 3},
+//   {suit: "Hearts", card: "4", rank: 4},
+//   {suit: "Hearts", card: "5", rank: 5},
+//   {suit: "Hearts", card: "6", rank: 6},
+//   {suit: "Hearts", card: "7", rank: 7},
+//   {suit: "Hearts", card: "8", rank: 8},
+//   {suit: "Hearts", card: "9", rank: 9},
+//   {suit: "Hearts", card: "10", rank: 10},
+//   {suit: "Hearts", card: "Jack", rank: 11},
+//   {suit: "Hearts", card: "Queen", rank: 12},
+//   {suit: "Hearts", card: "King", rank: 13},
+//
+//   {suit: "Spades", card: "Ace", rank: 1},
+//   {suit: "Spades", card: "2", rank: 2},
+//   {suit: "Spades", card: "3", rank: 3},
+//   {suit: "Spades", card: "4", rank: 4},
+//   {suit: "Spades", card: "5", rank: 5},
+//   {suit: "Spades", card: "6", rank: 6},
+//   {suit: "Spades", card: "7", rank: 7},
+//   {suit: "Spades", card: "8", rank: 8},
+//   {suit: "Spades", card: "9", rank: 9},
+//   {suit: "Spades", card: "10", rank: 10},
+//   {suit: "Spades", card: "Jack", rank: 11},
+//   {suit: "Spades", card: "Queen", rank: 12},
+//   {suit: "Spades", card: "King", rank: 13},
+//
+//   {suit: "Diamonds", card: "Ace", rank: 1},
+//   {suit: "Diamonds", card: "2", rank: 2},
+//   {suit: "Diamonds", card: "3", rank: 3},
+//   {suit: "Diamonds", card: "4", rank: 4},
+//   {suit: "Diamonds", card: "5", rank: 5},
+//   {suit: "Diamonds", card: "6", rank: 6},
+//   {suit: "Diamonds", card: "7", rank: 7},
+//   {suit: "Diamonds", card: "8", rank: 8},
+//   {suit: "Diamonds", card: "9", rank: 9},
+//   {suit: "Diamonds", card: "10", rank: 10},
+//   {suit: "Diamonds", card: "Jack", rank: 11},
+//   {suit: "Diamonds", card: "Queen", rank: 12},
+//   {suit: "Diamonds", card: "King", rank: 13},
+//
+//   {suit: "Clubs", card: "Ace", rank: 1},
+//   {suit: "Clubs", card: "2", rank: 2},
+//   {suit: "Clubs", card: "3", rank: 3},
+//   {suit: "Clubs", card: "4", rank: 4},
+//   {suit: "Clubs", card: "5", rank: 5},
+//   {suit: "Clubs", card: "6", rank: 6},
+//   {suit: "Clubs", card: "7", rank: 7},
+//   {suit: "Clubs", card: "8", rank: 8},
+//   {suit: "Clubs", card: "9", rank: 9},
+//   {suit: "Clubs", card: "10", rank: 10},
+//   {suit: "Clubs", card: "Jack", rank: 11},
+//   {suit: "Clubs", card: "Queen", rank: 12},
+//   {suit: "Clubs", card: "King", rank: 13},
+// ];
 
-  {suit: "Spades", card: "Ace", rank: 1},
-  {suit: "Spades", card: "2", rank: 2},
-  {suit: "Spades", card: "3", rank: 3},
-  {suit: "Spades", card: "4", rank: 4},
-  {suit: "Spades", card: "5", rank: 5},
-  {suit: "Spades", card: "6", rank: 6},
-  {suit: "Spades", card: "7", rank: 7},
-  {suit: "Spades", card: "8", rank: 8},
-  {suit: "Spades", card: "9", rank: 9},
-  {suit: "Spades", card: "10", rank: 10},
-  {suit: "Spades", card: "Jack", rank: 11},
-  {suit: "Spades", card: "Queen", rank: 12},
-  {suit: "Spades", card: "King", rank: 13},
+class Cards{
+  constructor(suit, rank, score){
+    this.suit = suit;
+    this.rank = rank;
+    this.score = score;
 
-  {suit: "Diamonds", card: "Ace", rank: 1},
-  {suit: "Diamonds", card: "2", rank: 2},
-  {suit: "Diamonds", card: "3", rank: 3},
-  {suit: "Diamonds", card: "4", rank: 4},
-  {suit: "Diamonds", card: "5", rank: 5},
-  {suit: "Diamonds", card: "6", rank: 6},
-  {suit: "Diamonds", card: "7", rank: 7},
-  {suit: "Diamonds", card: "8", rank: 8},
-  {suit: "Diamonds", card: "9", rank: 9},
-  {suit: "Diamonds", card: "10", rank: 10},
-  {suit: "Diamonds", card: "Jack", rank: 11},
-  {suit: "Diamonds", card: "Queen", rank: 12},
-  {suit: "Diamonds", card: "King", rank: 13},
+  }
+}
+class Deck{
+  constructor(){
+    // this.length = 52;
+    this.cards = [];
+  }
+  createDeck(){
+    let suit = ["Hearts", "Diamonds", "Clubs", "Spades"];
+    let rank = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
+    let score = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    for(var q = 0; q < suit.length; q++){
+      for(var r = 0; r < rank.length; r++){
+        this.cards.push( new Cards(suit[q], rank[r], score[r]));
+      }
+    }
+  }
+}
+let mainDeck = new Deck();
+mainDeck.createDeck();
 
-  {suit: "Clubs", card: "Ace", rank: 1},
-  {suit: "Clubs", card: "2", rank: 2},
-  {suit: "Clubs", card: "3", rank: 3},
-  {suit: "Clubs", card: "4", rank: 4},
-  {suit: "Clubs", card: "5", rank: 5},
-  {suit: "Clubs", card: "6", rank: 6},
-  {suit: "Clubs", card: "7", rank: 7},
-  {suit: "Clubs", card: "8", rank: 8},
-  {suit: "Clubs", card: "9", rank: 9},
-  {suit: "Clubs", card: "10", rank: 10},
-  {suit: "Clubs", card: "Jack", rank: 11},
-  {suit: "Clubs", card: "Queen", rank: 12},
-  {suit: "Clubs", card: "King", rank: 13},
-];
 
 //The players' decks
 var p1Deck = []; /* player 1's deck */
@@ -115,14 +143,14 @@ function shuffle(array){
 
 //Distribute the cards to each player
 function distributeCards(){
-  p1Deck = deck.slice(0,26);
-  p2Deck = deck.slice(26);
+  p1Deck = mainDeck.cards.slice(0,26);
+  p2Deck = mainDeck.cards.slice(26);
   return p1Deck, p2Deck;
 }
 
 //Push the player's decks into the pile of played cards.
 function playCard(playerDeck, playedCards){
-  if( p1Deck.length > 0 && p2Deck.length > 0){
+  if( p1Deck.length < 52 && p2Deck.length < 52){
   playedCards.push(playerDeck.pop());
   }
   else{
@@ -141,7 +169,7 @@ function war(){
     playedCards.push(p2Deck.pop());
   }
   console.log(playedCards);
-  if(playedCards[(playedCards.length-2)].rank > playedCards[(playedCards.length-1)].rank){
+  if(playedCards[(playedCards.length-2)].score > playedCards[(playedCards.length-1)].score){
     console.log("Player 1 wins War!");
     for(var o = 0; o < playedCards.length; o++){
       p1Deck.unshift(playedCards[o]);
@@ -155,13 +183,14 @@ function war(){
   }
 }
 function compareCards(clear){
-  if(playedCards[0].rank > playedCards[1].rank){
+
+  if(playedCards[0].score > playedCards[1].score){
     console.log(`Player 1 wins`);
     for(var i = 0; i < playedCards.length; i++){
       p1Deck.unshift(playedCards[i]);
     }
   }
-  else if(playedCards[0].rank < playedCards[1].rank){
+  else if(playedCards[0].score < playedCards[1].score){
     console.log(`Player 2 wins`);
     for(var j = 0; j < playedCards.length; j++){
       p2Deck.unshift(playedCards[j]);
@@ -192,7 +221,7 @@ function clearPlayedCards(){
 
 //Start the game
 function startGame(){
-  shuffle(deck);
+  shuffle(mainDeck.cards);
   distributeCards();
 }
 //Each player puts down a card to start the round
@@ -203,7 +232,7 @@ function beginRound(){
 }
 
 startGame();
-// while( p1Deck.length > 0 && p2Deck.length > 0){
+while( p1Deck.length > 0 && p2Deck.length > 0){
   beginRound();
   compareCards(clearPlayedCards);
-// }
+}
