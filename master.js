@@ -60,10 +60,22 @@ class Deck{
       }
     }
   }
+  shuffle(array){
+    var m = array.length, t,s;
+    while(m){
+      s = Math.floor(Math.random()* m--);
+      t = array[m];
+      array[m] = array[s];
+      array[s] = t;
+    }
+    return array;
+  }
 
 }
 let mainDeck = new Deck();
 mainDeck.createDeck();
+
+mainDeck.shuffle(mainDeck.cards);
 
 
 //The players' deck
@@ -74,16 +86,16 @@ var p2Deck = []; /* player 2's deck */
 var playedCards = [];
 
 //Function to shuffle the main deck.
-function shuffle(array){
-  var m = array.length, t,s;
-  while(m){
-    s = Math.floor(Math.random()* m--);
-    t = array[m];
-    array[m] = array[s];
-    array[s] = t;
-  }
-  return array;
-}
+// function shuffle(array){
+//   var m = array.length, t,s;
+//   while(m){
+//     s = Math.floor(Math.random()* m--);
+//     t = array[m];
+//     array[m] = array[s];
+//     array[s] = t;
+//   }
+//   return array;
+// }
 
 //Distribute the cards to each player
 function distributeCards(){
@@ -175,8 +187,8 @@ function beginRound(){
   playCard(p2Deck, playedCards);
 }
 
-startGame();
-while( p1Deck.length > 0 && p2Deck.length > 0){
-  beginRound();
-  compareCards(clearPlayedCards);
-}
+// startGame();
+// while( p1Deck.length > 0 && p2Deck.length > 0){
+//   beginRound();
+//   compareCards(clearPlayedCards);
+// }
