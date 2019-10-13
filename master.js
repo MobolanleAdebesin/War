@@ -127,7 +127,8 @@ class Board {
     }
     else{
       if(this.newDeck.p1Deck.length > 3 && this.newDeck.p2Deck.length > 3){
-        console.log(`War!`);
+        console.log(`War! Each player puts down 4 cards, the player whose last card is the highest takes the pile!`);
+        this.war();
       }
       else if(this.newDeck.p1Deck.length > this.newDeck.p1Deck.length){
           console.log(`Game Over! Player 1 Wins!`);
@@ -142,7 +143,30 @@ class Board {
   clear(){
     this.playedCards = [];
   }
-
+  war(){
+    for(let n = 0; n < 4; n++){
+      this.playedCards.push(this.newDeck.p1Deck.pop());
+      this.playedCards.push(this.newDeck.p2Deck.pop());
+    }
+    console.log(`The cards in the war pile are:`);
+    for(let u = 0; u < this.playedCards.length; u++){
+      console.log(`${this.playedCards[u].rank} of ${this.playedCards[u].suit}`);
+    }
+    console.log(`Player 1's last card is ${this.playedCards[this.playedCards.length-2].rank} of ${this.playedCards[this.playedCards.length-2].suit}. Player 2's last card is ${this.playedCards[this.playedCards.length-1].score} of ${this.playedCards[this.playedCards.length-1].suit} `);
+    if(this.playedCards[this.playedCards.length-2].score > this.playedCards[this.playedCards.length-1].score){
+      console.log(`Player 1 wins War!`);
+      for(let o = 0; o < this.playedCards.length; o++){
+        this.newDeck.p1Deck.unshift(this.playedCards[o]);
+      }
+    }
+    else{
+      console.log(`Player 2 wins War!`);
+      for(let p = 0; p < this.playedCards.length; p++){
+        this.newDeck.p2Deck.unshift(this.playedCards[p]);
+      }
+    }
+    console.log(`Player 1 has ${this.newDeck.p1Deck.length} card(s). Player 2 has ${this.newDeck.p2Deck.length} card(s).`);
+  }
 
 }
 
@@ -161,26 +185,27 @@ let myBoard = new Board();
 //     }
 //   }
 // }
-
-function war(){
-  for(var n = 0; n < 4; n++){
-    playedCards.push(p1Deck.pop());
-    playedCards.push(p2Deck.pop());
-  }
-  console.log(playedCards);
-  if(playedCards[(playedCards.length-2)].score > playedCards[(playedCards.length-1)].score){
-    console.log("Player 1 wins War!");
-    for(var o = 0; o < playedCards.length; o++){
-      mainDeck.p1Deck.unshift(playedCards[o]);
-    }
-  }
-  else{
-    console.log("Player 2 wins War!");
-    for(var p = 0; p < playedCards.length; p++){
-      mainDeck.p2Deck.unshift(playedCards[p]);
-    }
-  }
-}
+// myBoard.newDeck.p1Deck[25].score = 5;
+// myBoard.newDeck.p2Deck[25].score = 5;
+// function war(){
+//   for(var n = 0; n < 4; n++){
+//     playedCards.push(p1Deck.pop());
+//     playedCards.push(p2Deck.pop());
+//   }
+//   console.log(playedCards);
+//   if(playedCards[(playedCards.length-2)].score > playedCards[(playedCards.length-1)].score){
+//     console.log("Player 1 wins War!");
+//     for(var o = 0; o < playedCards.length; o++){
+//       mainDeck.p1Deck.unshift(playedCards[o]);
+//     }
+//   }
+//   else{
+//     console.log("Player 2 wins War!");
+//     for(var p = 0; p < playedCards.length; p++){
+//       mainDeck.p2Deck.unshift(playedCards[p]);
+//     }
+//   }
+// }
 // function compareCards(clear){
 //
 //   if(playedCards[0].score > playedCards[1].score){
