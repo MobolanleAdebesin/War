@@ -177,14 +177,14 @@ else if(this.newDeck.p2Deck.length === 0){
         this.newDeck.p2Deck.unshift(this.playedCards[w]);
         }
         this.clear();
-        break;
+      return;
       }
       else if(this.newDeck.p2Deck === 0){
         for(let w = 0; w < this.playedCards.length; w++){
         this.newDeck.p1Deck.unshift(this.playedCards[w]);
         }
         this.clear();
-        break;
+        return;
 
 
     }
@@ -199,12 +199,14 @@ else if(this.newDeck.p2Deck.length === 0){
       for(let o = 0; o < this.playedCards.length; o++){
         this.newDeck.p1Deck.unshift(this.playedCards[o]);
       }
+      this.clear();
     }
     else if(this.playedCards[this.playedCards.length-2].score < this.playedCards[this.playedCards.length-1].score){
       console.log(`Player 2 wins War!`);
       for(let p = 0; p < this.playedCards.length; p++){
         this.newDeck.p2Deck.unshift(this.playedCards[p]);
       }
+      this.clear();
     }
     else{
       this.playCard();
@@ -247,3 +249,4 @@ else if(this.newDeck.p2Deck.length === 0){
 }
 let myBoard = new Board();
 myBoard.setUpGame();
+myBoard.playGame();
