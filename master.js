@@ -101,9 +101,23 @@ class Board {
   }
   //This method is used to pull the last card from each player's array.
   playCard(){
+    if( this.newDeck.p1Deck.length > 0 && this.newDeck.p2Deck.length > 0){
       this.playedCards.push(this.newDeck.p1Deck.pop()); /*pop the last item from player 1's array into the playedCards array*/
       this.playedCards.push(this.newDeck.p2Deck.pop());/*pop the last item from player 2's array into the playedCards array*/
       console.log(`Player 1 played a ${this.playedCards[0].rank} of ${this.playedCards[0].suit}. Player 2 played a ${this.playedCards[1].rank} of ${this.playedCards[1].suit}.`); /*Logs the cards from each player*/
+}
+else if (this.newDeck.p1Deck.length === 0){
+  for(let y = 0; y < this.playedCards.length; y++){
+  this.newDeck.p2Deck.unshift(this.playedCards[y]);
+  }
+  console.log(`Player 2 wins`);
+}
+else if(this.newDeck.p2Deck.length === 0){
+  for(let z = 0; z < this.playedCards.length; z++){
+    this.newDeck.p1Deck.unshift(this.playedCards[z]);
+  }
+  console.log(`Player 1 wins`);
+}
     }
     //Compares the cards within the playedCards array to see which card has a higher score.
   compareCards(){
@@ -113,25 +127,27 @@ class Board {
       for(let i = 0; i < this.playedCards.length; i++){ //move all of the cards from the playedCards array into player 1's deck.
         this.newDeck.p1Deck.unshift(this.playedCards[i]);
       }
+      this.clear();
     }
     else if(this.playedCards[0].score < this.playedCards[1].score){ //If the first card in the array is less than the second card in the array than player 2 wins.
       console.log(`Player 2 wins the round`);
       for(let j = 0; j < this.playedCards.length; j++){ //move all of the cards from the playedCards array into player 2's deck.
         this.newDeck.p2Deck.unshift(this.playedCards[j]);
       }
+      this.clear();
     }
     else{ // if player 1's card is not greater than player 2's card and vice versa, then they must be equal. So there must be war.
-      if(this.newDeck.p1Deck.length > 3 && this.newDeck.p2Deck.length > 3){
+      // if(this.newDeck.p1Deck.length > 3 && this.newDeck.p2Deck.length > 3){
         console.log(`War! Each player puts down 4 cards, the player whose last card is the highest takes the pile!`);
         this.war(); //Call the war function.
-      }
+      // }
       //If both players do not have enough cards for war than the player with more cards automatically wins the game.
-      else if(this.newDeck.p1Deck.length > this.newDeck.p2Deck.length){
-          console.log(`Game Over! Player 1 Wins!`);
-      }
-      else{
-        console.log(`Game Over! Player 2 Wins!`);
-      }
+    //   else if(this.newDeck.p1Deck.length > this.newDeck.p2Deck.length){
+    //       console.log(`Game Over! Player 1 Wins!`);
+    //   }
+    //   else{
+    //     console.log(`Game Over! Player 2 Wins!`);
+    //   }
     }
     console.log(`Player 1 has ${this.newDeck.p1Deck.length} card(s). Player 2 has ${this.newDeck.p2Deck.length} card(s).`); //Logs the number of cards each player currently has.
     this.clear(); //calls the clear function to remove the cards from the playedCards pile.
@@ -150,9 +166,27 @@ class Board {
     this.playedCards = [];
   }
   war(){
+
     for(let n = 0; n < 4; n++){
+      if(this.newDeck.p1Deck.length > 0 && this.newDeck.p2Deck.length > 0){
       this.playedCards.push(this.newDeck.p1Deck.pop());
       this.playedCards.push(this.newDeck.p2Deck.pop());
+      }
+      else if(this.newDeck.p1Deck === 0){
+        for(let w = 0; w < this.playedCards.length; w++){
+        this.newDeck.p2Deck.unshift(this.playedCards[w]);
+        }
+        this.clear();
+        break;
+      }
+      else if(this.newDeck.p2Deck === 0){
+        for(let w = 0; w < this.playedCards.length; w++){
+        this.newDeck.p1Deck.unshift(this.playedCards[w]);
+        }
+        this.clear();
+        break;
+
+
     }
     console.log(`The cards in the war pile are:`);
     for(let u = 0; u < this.playedCards.length; u++){
@@ -178,6 +212,7 @@ class Board {
     }
     console.log(`Player 1 has ${this.newDeck.p1Deck.length} card(s). Player 2 has ${this.newDeck.p2Deck.length} card(s).`);
   }
+}
 
   playRound(){
 
@@ -193,14 +228,13 @@ class Board {
     // }
   }
   playGame(){
-
-    while(this.newDeck.p1Deck.length > 0 && this.newDeck.p2Deck.length > 0){
-
+    while(this.newDeck.p1Deck.length < 52 && this.newDeck.p2Deck.length < 52 ){
+      this.playRound();
+    }
       console.log(`This is round ${this.round}`);
       this.playRound();
       this.round++;
 
-    }
     if(this.newDeck.p1Deck.length > this.newDeck.p2Deck.length){
       console.log(`Player 1 wins the Game!`);
     }
@@ -213,4 +247,3 @@ class Board {
 }
 let myBoard = new Board();
 myBoard.setUpGame();
-myBoard.playGame();
