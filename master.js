@@ -78,7 +78,7 @@ class Deck{
   //This method distributes the cards to each of the players arrays. Half the deck goes to player 1 and half to player 2.
   distributeCards(){
     this.p1Deck = this.cards.slice(0,26);
-    this.p2Deck = this.cards.slice(26);
+    this.p2Deck = this.cards.slice(26, 52);
   }
 
 }
@@ -105,20 +105,20 @@ class Board {
       this.playedCards.push(this.newDeck.p1Deck.pop()); /*pop the last item from player 1's array into the playedCards array*/
       this.playedCards.push(this.newDeck.p2Deck.pop());/*pop the last item from player 2's array into the playedCards array*/
       console.log(`Player 1 played a ${this.playedCards[0].rank} of ${this.playedCards[0].suit}. Player 2 played a ${this.playedCards[1].rank} of ${this.playedCards[1].suit}.`); /*Logs the cards from each player*/
-}
-else if (this.newDeck.p1Deck.length === 0){
-  for(let y = 0; y < this.playedCards.length; y++){
-  this.newDeck.p2Deck.unshift(this.playedCards[y]);
-  }
-  console.log(`Player 2 wins`);
-}
-else if(this.newDeck.p2Deck.length === 0){
-  for(let z = 0; z < this.playedCards.length; z++){
-    this.newDeck.p1Deck.unshift(this.playedCards[z]);
-  }
-  console.log(`Player 1 wins`);
-}
     }
+    else if (this.newDeck.p1Deck.length === 0){
+      for(let y = 0; y < this.playedCards.length; y++){
+      this.newDeck.p2Deck.unshift(this.playedCards[y]);
+      }
+      console.log(`Player 2 wins`);
+    }
+    else if(this.newDeck.p2Deck.length === 0){
+      for(let z = 0; z < this.playedCards.length; z++){
+        this.newDeck.p1Deck.unshift(this.playedCards[z]);
+      }
+      console.log(`Player 1 wins`);
+    }
+  }
     //Compares the cards within the playedCards array to see which card has a higher score.
   compareCards(){
     if( this.playedCards.length > 0){ //This will only check the cards if there are actually cards in the playedCards array.
@@ -230,7 +230,7 @@ else if(this.newDeck.p2Deck.length === 0){
     // }
   }
   playGame(){
-    while(this.newDeck.p1Deck.length < 52 && this.newDeck.p2Deck.length < 52 ){
+    while(this.newDeck.p1Deck.length > 0 && this.newDeck.p2Deck.length > 0 ){
       this.playRound();
     }
       console.log(`This is round ${this.round}`);
@@ -249,4 +249,3 @@ else if(this.newDeck.p2Deck.length === 0){
 }
 let myBoard = new Board();
 myBoard.setUpGame();
-myBoard.playGame();
